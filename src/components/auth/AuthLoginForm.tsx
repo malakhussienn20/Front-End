@@ -58,7 +58,7 @@ export default function AuthLoginForm({
           validationSchema={validationSchema}
           onSubmit={async (values, { setFieldError, setSubmitting }) => {
             try {
-              await login(values.email, values.password);
+              await login(values.email, values.password, returnTo === "DoctorLogin" ? "doctor" : "patient");
               setIsLoggedIn(true);
             } catch (error: any) {
               const message =

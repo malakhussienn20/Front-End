@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
 
-export const login = async (email: string, password: string) => {
+export const login = async (email: string, password: string, userType: string = 'patient') => {
   const { data } = await api.post('/auth/login', { email, password });
   await AsyncStorage.setItem('token', data.token);
   await AsyncStorage.setItem('isPremium', JSON.stringify(data.isPremium));
+  await AsyncStorage.setItem('userType', userType);
   return data;
 };
 

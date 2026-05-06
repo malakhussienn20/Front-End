@@ -75,7 +75,7 @@ export default function FinalDiagnosisScreen({ navigation, route }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.white },
+  container: { flex: 1, backgroundColor: colors.background },
   content: { paddingHorizontal: 16, paddingBottom: 24 },
   sectionTitle: { fontSize: 18, fontWeight: "700", color: colors.black, marginTop: 24, marginBottom: 14 },
   notesInput: { backgroundColor: "#F2F4F8", borderRadius: 14, padding: 14, fontSize: 14, color: colors.black, minHeight: 160, lineHeight: 22 },

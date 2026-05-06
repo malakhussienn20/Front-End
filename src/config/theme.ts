@@ -42,7 +42,7 @@ export const CONDITION_INFO: Record<string, { subtitle: string; overview: string
 
 // Shared reusable styles
 export const common = StyleSheet.create({
-  screen:    { flex: 1, backgroundColor: colors.white },
+  screen:    { flex: 1, backgroundColor: colors.background },
   screenBg:  { flex: 1, backgroundColor: colors.background },
   card:      { backgroundColor: colors.white, borderRadius: radius.lg, padding: spacing.lg, shadowColor: "#000", shadowOpacity: 0.06, shadowRadius: 6, elevation: 2 },
   row:       { flexDirection: "row", alignItems: "center" },

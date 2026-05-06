@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import colors from "../config/colors";
 import BottomTabBar from "../components/layout/BottomTabBar";
 
 export default function HomeScreen() {
@@ -14,7 +15,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: { flex: 1, backgroundColor: colors.background },
   content: { flex: 1, justifyContent: "center", alignItems: "center" },
   title: {
     fontSize: 24,

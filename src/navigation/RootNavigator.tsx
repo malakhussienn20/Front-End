@@ -6,9 +6,9 @@ import DoctorNavigator from "./DoctorNavigator";
 import SplashScreen from "../screens/SplashScreen";
 
 export default function RootNavigator() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [userType, setUserType] = useState<string | null>(null);
+  const [userType, setUserType] = useState<string | null>("doctor");
 
   useEffect(() => {
     const init = async () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../config/colors";
 import { common, CONDITION_INFO } from "../config/theme";
@@ -45,6 +45,13 @@ export default function DiagnosisReportScreen({ navigation, route }: any) {
           ))}
         </View>
 
+        <TouchableOpacity
+          style={styles.finalDiagBtn}
+          onPress={() => navigation.navigate("FinalDiagnosis", { patient })}
+        >
+          <Text style={styles.finalDiagText}>Final Diagnosis</Text>
+        </TouchableOpacity>
+
         <View style={{ height: 30 }} />
       </ScrollView>
     </SafeAreaView>
@@ -62,4 +69,17 @@ const styles = StyleSheet.create({
   sectionNum: { fontSize: 15, fontWeight: "700", color: colors.black, marginTop: 16, marginBottom: 8 },
   stepRow: { gap: 8, marginBottom: 6, alignItems: "flex-start" },
   stepDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: colors.main, marginTop: 6 },
+  finalDiagBtn: {
+    backgroundColor: colors.main,
+    borderRadius: 50,
+    paddingVertical: 16,
+    alignItems: "center",
+    marginHorizontal: 16,
+    marginBottom: 16,
+  },
+  finalDiagText: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: colors.white,
+  },
 });

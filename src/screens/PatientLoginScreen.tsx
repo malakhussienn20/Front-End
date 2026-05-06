@@ -8,7 +8,6 @@ export default function PatientLoginScreen({ navigation, setIsLoggedIn }: any) {
       showRegister={true}
       returnTo="PatientLogin"
       setIsLoggedIn={setIsLoggedIn}
-      userType="patient"
     />
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
@@ -7,28 +7,22 @@ import { common } from "../config/theme";
 import ProfileField from "../components/profile/ProfileField";
 
 export default function ProfileScreen({ navigation }: any) {
-  const [editing, setEditing] = useState(false);
-  const [name,      setName]      = useState("Dr. Ahmed Hassan");
-  const [email,     setEmail]     = useState("ahmed.hassan@dermclinic.com");
-  const [phone,     setPhone]     = useState("+20 100 123 4567");
-  const [specialty, setSpecialty] = useState("Dermatology");
-  const [clinic,    setClinic]    = useState("Cairo Skin & Laser Center");
-  const [bio,       setBio]       = useState("Board-certified dermatologist with 10+ years of experience in skin disease diagnosis and treatment.");
+  const [name]      = useState("Dr. Ahmed Hassan");
+  const [email]     = useState("ahmed.hassan@dermclinic.com");
+  const [phone]     = useState("+20 100 123 4567");
+  const [specialty] = useState("Dermatology");
+  const [clinic]    = useState("Cairo Skin & Laser Center");
+  const [bio]       = useState("Board-certified dermatologist with 10+ years of experience in skin disease diagnosis and treatment.");
 
   const initials = name.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase();
 
-  const handleSave = () => {
-    setEditing(false);
-    Alert.alert("Saved", "Your profile has been updated successfully.");
-  };
-
   const fields = [
-    { icon: "person-outline"        as const, label: "Full Name",       value: name,      onChange: setName },
-    { icon: "mail-outline"          as const, label: "Email",           value: email,     onChange: setEmail },
-    { icon: "call-outline"          as const, label: "Phone",           value: phone,     onChange: setPhone },
-    { icon: "medical-outline"       as const, label: "Specialty",       value: specialty, onChange: setSpecialty },
-    { icon: "business-outline"      as const, label: "Clinic/Hospital", value: clinic,    onChange: setClinic },
-    { icon: "document-text-outline" as const, label: "Bio",             value: bio,       onChange: setBio, multiline: true },
+    { icon: "person-outline"        as const, label: "Full Name",       value: name,      onChange: () => {} },
+    { icon: "mail-outline"          as const, label: "Email",           value: email,     onChange: () => {} },
+    { icon: "call-outline"          as const, label: "Phone",           value: phone,     onChange: () => {} },
+    { icon: "medical-outline"       as const, label: "Specialty",       value: specialty, onChange: () => {} },
+    { icon: "business-outline"      as const, label: "Clinic/Hospital", value: clinic,    onChange: () => {} },
+    { icon: "document-text-outline" as const, label: "Bio",             value: bio,       onChange: () => {}, multiline: true },
   ];
 
   return (
@@ -38,9 +32,7 @@ export default function ProfileScreen({ navigation }: any) {
           <Ionicons name="chevron-back" size={26} color={colors.black} />
         </TouchableOpacity>
         <Text style={common.title}>My Profile</Text>
-        <TouchableOpacity onPress={editing ? handleSave : () => setEditing(true)} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-          <Text style={styles.editBtn}>{editing ? "Save" : "Edit"}</Text>
-        </TouchableOpacity>
+        <View style={{ width: 26 }} />
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
@@ -48,48 +40,32 @@ export default function ProfileScreen({ navigation }: any) {
           <View style={styles.avatar}>
             <Text style={styles.avatarText}>{initials}</Text>
           </View>
-          {editing ? (
-            <TouchableOpacity style={styles.changePhotoBtn}>
-              <Ionicons name="camera-outline" size={16} color={colors.main} />
-              <Text style={styles.changePhotoText}>Change Photo</Text>
-            </TouchableOpacity>
-          ) : (
-            <>
-              <Text style={styles.profileName}>{name}</Text>
-              <Text style={styles.profileSpecialty}>{specialty}</Text>
-              <View style={styles.clinicBadge}>
-                <Ionicons name="business-outline" size={13} color={colors.main} />
-                <Text style={styles.clinicText}>{clinic}</Text>
-              </View>
-            </>
-          )}
+          <Text style={styles.profileName}>{name}</Text>
+          <Text style={styles.profileSpecialty}>{specialty}</Text>
+          <View style={styles.clinicBadge}>
+            <Ionicons name="business-outline" size={13} color={colors.main} />
+            <Text style={styles.clinicText}>{clinic}</Text>
+          </View>
         </View>
 
-        {!editing && (
-          <View style={styles.statsRow}>
-            {[["128", "Patients"], ["94%", "Accuracy"], ["10+", "Years Exp."]].map(([val, lbl], i) => (
-              <React.Fragment key={i}>
-                {i > 0 && <View style={styles.statDivider} />}
-                <View style={styles.statItem}>
-                  <Text style={styles.statValue}>{val}</Text>
-                  <Text style={styles.statLabel}>{lbl}</Text>
-                </View>
-              </React.Fragment>
-            ))}
-          </View>
-        )}
-
-        <View style={styles.fieldsCard}>
-          {fields.map((f, i) => (
-            <ProfileField key={i} {...f} editing={editing} isLast={i === fields.length - 1} />
+        <View style={styles.statsRow}>
+          {[ ["128", "Patients"], ["94%", "Accuracy"], ["10+", "Years Exp."] ].map(([val, lbl], i) => (
+            <React.Fragment key={i}>
+              {i > 0 && <View style={styles.statDivider} />}
+              <View style={styles.statItem}>
+                <Text style={styles.statValue}>{val}</Text>
+                <Text style={styles.statLabel}>{lbl}</Text>
+              </View>
+            </React.Fragment>
           ))}
         </View>
 
-        {editing && (
-          <TouchableOpacity style={styles.saveBtn} onPress={handleSave}>
-            <Text style={styles.saveBtnText}>Save Changes</Text>
-          </TouchableOpacity>
-        )}
+        <View style={styles.fieldsCard}>
+          {fields.map((f, i) => (
+            <ProfileField key={i} {...f} editing={false} isLast={i === fields.length - 1} />
+          ))}
+        </View>
+
         <View style={{ height: 24 }} />
       </ScrollView>
     </SafeAreaView>

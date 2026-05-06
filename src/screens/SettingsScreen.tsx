@@ -24,6 +24,7 @@ export default function SettingsScreen({ navigation }: any) {
       title: "Account",
       rows: [
         { icon: "person-circle-outline" as const, label: "My Profile",       type: "navigate" as const, onPress: () => navigation.navigate("Profile") },
+        { icon: "lock-closed-outline"   as const, label: "Change Password",  type: "navigate" as const, onPress: () => navigation.navigate("ChangePassword") },
       ],
     },
     {

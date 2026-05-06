@@ -1,28 +1,41 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import colors from "../config/colors";
-import { common } from "../config/theme";
 import ScreenHeader from "../components/layout/ScreenHeader";
 import DiagnosisToggle from "../components/diagnosis/DiagnosisToggle";
 import DiseaseDropdown from "../components/diagnosis/DiseaseDropdown";
+import Toast from "../components/common/Toast";
 
 export default function FinalDiagnosisScreen({ navigation, route }: any) {
   const { patient } = route.params ?? {};
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [selectedDisease, setSelectedDisease] = useState<string>(patient?.condition ?? "Eczema");
   const [notes, setNotes] = useState("");
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastText, setToastText] = useState("");
+  const [toastType, setToastType] = useState<"success" | "error">("success");
+
+  useEffect(() => {
+    if (!toastVisible) return;
+    const timer = setTimeout(() => setToastVisible(false), 3000);
+    return () => clearTimeout(timer);
+  }, [toastVisible]);
+
+  const showToast = (text: string, type: "success" | "error") => {
+    setToastText(text);
+    setToastType(type);
+    setToastVisible(true);
+  };
 
   const handleSubmit = () => {
     if (isCorrect === null) {
-      Alert.alert("Required", "Please confirm if the model prediction is correct or not.");
+      showToast("Please confirm if the model prediction is correct or not.", "error");
       return;
     }
-    Alert.alert(
-      "Submitted",
-      `Diagnosis for ${patient?.name ?? "patient"} submitted successfully.`,
-      [{ text: "OK", onPress: () => navigation.goBack() }]
-    );
+
+    showToast(`Notes sent successfully to ${patient?.name ?? "the patient"}.`, "success");
+    setNotes("");
   };
 
   return (
@@ -46,6 +59,10 @@ export default function FinalDiagnosisScreen({ navigation, route }: any) {
           value={notes}
           onChangeText={setNotes}
         />
+
+        {toastVisible && (
+          <Toast type={toastType} message={toastText} onClose={() => setToastVisible(false)} />
+        )}
       </ScrollView>
 
       <View style={styles.footer}>

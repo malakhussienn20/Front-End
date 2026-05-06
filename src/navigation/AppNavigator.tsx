@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import PatientDetailsScreen from "../screens/PatientDetailsScreen";
-import ChatScreen from "../screens/ChatScreen";
 import DiagnosisReportScreen from "../screens/DiagnosisReportScreen";
 import ScheduleScreen from "../screens/ScheduleScreen";
 import AlertsScreen from "../screens/AlertsScreen";
@@ -15,7 +14,6 @@ export default function AppNavigator() {
       <Stack.Screen name="Schedule" component={ScheduleScreen} />
       <Stack.Screen name="Alerts" component={AlertsScreen} />
       <Stack.Screen name="PatientDetails" component={PatientDetailsScreen} />
-      <Stack.Screen name="Chat" component={ChatScreen} />
       <Stack.Screen name="DiagnosisReport" component={DiagnosisReportScreen} />
     </Stack.Navigator>
   );
